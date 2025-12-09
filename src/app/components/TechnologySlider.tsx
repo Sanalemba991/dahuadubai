@@ -221,7 +221,8 @@ export default function TechnologySlider() {
                   <div className="pt-1">
                     <a
                       href={slide.link}
-                      className="group relative px-5 py-2 overflow-hidden border-2 border-white transition-all duration-300 mx-auto lg:mx-0 block w-fit"
+                      className="group rounded-full
+relative px-5 py-2 overflow-hidden border-2 border-white transition-all duration-300 mx-auto lg:mx-0 block w-fit"
                     >
                       <span className="relative z-10 text-white group-hover:text-gray-900 transition-colors duration-300 text-sm sm:text-base">
                         Learn More

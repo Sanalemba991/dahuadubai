@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, useReducedMotion, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
@@ -144,14 +144,14 @@ const textVariants: Variants = {
 
 const buttonStyles = {
   button: {
-    all: "unset" as const,
-    cursor: "pointer" as const,
+    all: "unset",
+    cursor: "pointer",
     backgroundColor: "#fff",
     padding: "8px 16px", // Increased padding to make the button a little bigger
     color: "#000",
-  // Increased borderRadius to make the border more rounded
+    borderRadius: "40px", // Increased borderRadius to make the border more rounded
     position: "relative" as const,
-    overflow: "clip" as const,
+    overflow: "clip",
     border: "2px solid rgb(231, 46, 46)",
   },
   buttonTitle: {
@@ -162,16 +162,18 @@ const buttonStyles = {
   },
   buttonTitle2: {
     margin: 0,
+    text: "white", // (this line is not needed for color)
     height: "100%",
     top: 0,
     transform: "translateY(-50%)",
     position: "absolute" as const,
-    display: "flex" as const,
-    alignItems: "center" as const,
+    display: "flex",
+    alignItems: "center",
     zIndex: 2,
-    color: "#000",
+    color: "#fff", // ✅ white text
     fontSize: "0.9rem",
   },
+
   buttonBackground: {
     position: "absolute" as const,
     zIndex: 1,
@@ -179,7 +181,7 @@ const buttonStyles = {
     left: 0,
     height: "100%",
     width: "100%",
-  // Match the increased borderRadius
+    borderRadius: "40px", // Match the increased borderRadius
     backgroundColor: "rgb(231, 46, 46)",
   },
 };
@@ -192,46 +194,114 @@ function MotionButton({
   children: React.ReactNode;
 }) {
   const [isHovering, setIsHovering] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const btn = buttonRef.current;
+    if (!btn) return;
+
+    const resetBoxShadow = () => {
+      btn.style.boxShadow = "none";
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const offsetX = x - centerX;
+      const offsetY = y - centerY;
+
+      const shadowX = offsetX / 5;
+      const shadowY = offsetY / 1.5;
+      const insetX = offsetX / 22;
+      const insetY = offsetY / 8;
+
+      btn.style.boxShadow = `inset ${-insetX}px ${-insetY}px 2px rgba(231,46,46,0.95),
+                             inset ${insetX}px ${insetY}px 2px rgba(255,255,255,0.08),
+                             ${shadowX}px ${shadowY}px 14px -14px rgba(231,46,46,0.18),
+                             ${shadowX * 3}px ${
+        shadowY * 3
+      }px 48px rgba(231,46,46,0.55)`;
+    };
+
+    const handleMouseLeave = () => {
+      resetBoxShadow();
+    };
+
+    btn.addEventListener("mousemove", handleMouseMove);
+    btn.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      btn.removeEventListener("mousemove", handleMouseMove);
+      btn.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
 
   return (
     <motion.button
-      style={buttonStyles.button}
+      ref={buttonRef}
+      style={{
+        cursor: "pointer",
+        backgroundColor: "#fff",
+        padding: "8px 16px",
+        color: "#000",
+        borderRadius: "40px",
+        position: "relative" as const,
+        overflow: "clip",
+        border: "2px solid rgb(231, 46, 46)",
+        background:
+          "linear-gradient(180deg, rgba(207,207,208,0) 0%, rgba(159,159,160,0) 100%)",
+      }}
       initial={false}
       onHoverStart={() => setIsHovering(true)}
       onHoverEnd={() => setIsHovering(false)}
       onClick={onClick}
+      aria-label="Request Quote"
     >
       <motion.p
-        style={buttonStyles.buttonTitle}
+        style={{
+          ...buttonStyles.buttonTitle,
+          color: "#000", // keep text black always
+          zIndex: 3, // ensure it's above the animated background
+        }}
         initial={false}
-        transition={{ type: "tween", duration: 0.5, ease: "linear" }}
-        animate={{ 
+        transition={{ type: "tween", duration: 0.45, ease: "linear" }}
+        animate={{
           y: isHovering ? -40 : 0,
-          color: isHovering ? "#fff" : "#000"
         }}
       >
         {children}
       </motion.p>
+
       <motion.p
-        style={buttonStyles.buttonTitle2}
+        style={{
+          ...buttonStyles.buttonTitle2,
+          color: "#fff", // ✅ text white
+          zIndex: 3,
+        }}
         initial={false}
-        transition={{ type: "tween", duration: 0.5, ease: "linear" }}
-        animate={{ 
+        transition={{ type: "tween", duration: 0.45, ease: "linear" }}
+        animate={{
           y: isHovering ? 0 : 40,
-          color: isHovering ? "#fff" : "#000"
         }}
       >
         {children}
       </motion.p>
+
       <motion.div
-        style={buttonStyles.buttonBackground}
+        style={{
+          ...buttonStyles.buttonBackground,
+          backgroundColor: "rgb(231,46,46)",
+        }}
         initial={false}
-        transition={{ type: "tween", duration: 0.5, ease: "linear" }}
+        transition={{ type: "tween", duration: 0.45, ease: "linear" }}
         animate={{
           y: isHovering ? "0%" : "100%",
           scaleX: isHovering ? 1 : 0.5,
         }}
-      ></motion.div>
+      />
     </motion.button>
   );
 }
@@ -370,68 +440,68 @@ export default function ProductDetailPageClient({
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 lg:py-28">
           <motion.nav
-  className="inline-flex items-center gap-x-0.5 sm:gap-x-1 
+            className="inline-flex items-center gap-x-0.5 sm:gap-x-1 
     text-[8px] sm:text-xs 
     bg-white/80 backdrop-blur-sm rounded-full 
     px-1 sm:px-2 py-0.5 sm:py-1 
     mb-4 sm:mb-6
     max-w-full overflow-x-auto
     flex-nowrap"
-  style={{ 
-    scrollbarWidth: 'none', 
-    msOverflowStyle: 'none',
-    WebkitOverflowScrolling: 'touch'
-  }}
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ delay: 0.2, duration: 0.6 }}
->
-  <Link
-    href="/"
-    className="text-slate-600 hover:text-slate-900 transition-colors flex items-center group flex-shrink-0"
-  >
-    <FaHome className="w-2 h-2 sm:w-2.5 sm:h-2.5 group-hover:scale-110 transition-transform" />
-  </Link>
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <Link
+              href="/"
+              className="text-slate-600 hover:text-slate-900 transition-colors flex items-center group flex-shrink-0"
+            >
+              <FaHome className="w-2 h-2 sm:w-2.5 sm:h-2.5 group-hover:scale-110 transition-transform" />
+            </Link>
 
-  <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
+            <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
 
-  <Link
-    href={navbarCategory.href}
-    className="text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap flex-shrink-0"
-  >
-    {navbarCategory.name}
-  </Link>
+            <Link
+              href={navbarCategory.href}
+              className="text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap flex-shrink-0"
+            >
+              {navbarCategory.name}
+            </Link>
 
-  <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
+            <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
 
-  <Link
-    href={`/product/${category.slug}`}
-    className="text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap flex-shrink-0"
-  >
-    {category.name}
-  </Link>
+            <Link
+              href={`/product/${category.slug}`}
+              className="text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap flex-shrink-0"
+            >
+              {category.name}
+            </Link>
 
-  <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
+            <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
 
-  <Link
-    href={`/product/${category.slug}/${subCategory.slug}`}
-    className="text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap flex-shrink-0"
-  >
-    {subCategory.name}
-  </Link>
+            <Link
+              href={`/product/${category.slug}/${subCategory.slug}`}
+              className="text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap flex-shrink-0"
+            >
+              {subCategory.name}
+            </Link>
 
-  <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
+            <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
 
-  <span className="text-red-500 font-semibold whitespace-nowrap flex-shrink-0">
-    {product.name}
-  </span>
-</motion.nav>
+            <span className="text-red-500 font-semibold whitespace-nowrap flex-shrink-0">
+              {product.name}
+            </span>
+          </motion.nav>
 
-<style jsx>{`
-  motion.nav::-webkit-scrollbar {
-    display: none;
-  }
-`}</style>
+          <style jsx>{`
+            motion.nav::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
 
           <motion.section
             className="mb-16"
@@ -441,7 +511,10 @@ export default function ProductDetailPageClient({
             variants={containerVariants}
           >
             <div className="grid lg:grid-cols-2 gap-8 items-start">
-              <motion.div variants={itemVariants} className="lg:sticky lg:top-20">
+              <motion.div
+                variants={itemVariants}
+                className="lg:sticky lg:top-20"
+              >
                 <div
                   className="relative bg-white rounded-2xl shadow-sm p-8 mb-3 cursor-pointer group"
                   onClick={() => setShowImageModal(true)}

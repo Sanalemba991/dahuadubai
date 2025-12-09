@@ -568,7 +568,7 @@ const Contact = () => {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className={`inline-flex items-center gap-3 px-7 py-3 border-2 ${isSubmitting
+                                        className={`inline-flex rounded-full items-center gap-3 px-7 py-3 border-2 ${isSubmitting
                                             ? 'bg-gray-400 border-gray-400 cursor-not-allowed text-white'
                                             : 'border-black text-black bg-transparent hover:bg-red-600 hover:border-red-600 hover:text-white'
                                             } transition-all duration-300 font-semibold group text-base`}
