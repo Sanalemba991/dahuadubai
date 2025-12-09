@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Disable horizontal scroll on the entire page */
+
+/* Shiny button effect styles */
+.radial-gradient {
+  background: radial-gradient(ellipse at 50% 0%, #fff6, transparent 70%);
+  overflow: hidden;
+}
+.linear-mask {
+  position: relative;
+  z-index: 10;
+}
+.linear-overlay {
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(239, 68, 68, 0.7) 50%,
+    transparent 100%
+  );
+  transform: translateX(var(--x, 100%));
+  transition: transform 0.5s;
+  z-index: 20;
+  mix-blend-mode: lighten;
+  opacity: 1;
+}
+
+.button {
+  all: unset;
+  cursor: pointer;
+  background-color: #fff;
+  padding: 20px 36px;
+  color: #000;
+  border-radius: 100px;
+  position: relative;
+  overflow: clip;
+}
+
+.buttonTitle {
+  margin: 0;
+  z-index: 2;
+}
+
+.buttonTitle2 {
+  margin: 0;
+  height: 100%;
+  top: 0;
+  transform: translateY(-50%);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.buttonBackground {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  background-color: #c9ff18;
+}
