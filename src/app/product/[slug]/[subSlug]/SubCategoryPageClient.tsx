@@ -281,7 +281,7 @@ export default function SubCategoryPageClient({
   // Hero images
   const desktopHeroImage = "/images/Product2.png";
   const mobileBannerData = {
-    image: "/mobile/subcategory.jpg",
+    image: "/mobile/Product 2.png",
     title: subCategory.name,
     subtitle: "Subcategory",
     description: subCategory.description || "Explore detailed products in this subcategory.",

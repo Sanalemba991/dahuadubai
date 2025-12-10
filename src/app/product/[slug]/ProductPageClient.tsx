@@ -267,7 +267,7 @@ export default function ProductPageClient({
   // Hero images
   const desktopHeroImage = "/images/categoery.png";
   const mobileBannerData = {
-    image: "/mobile/product.jpg",
+    image: "/mobile/Category.png",
     title: category.name,
     subtitle: "Product Category",
     description: category.description || "Explore our detailed product offerings.",

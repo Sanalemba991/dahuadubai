@@ -18,7 +18,7 @@ export default function Banner() {
     };
 
     const mobileBannerData = {
-        image: "/mobile/mobile4.jpg",
+        image: "/mobile/Main Banner.png",
         title: "Dahua Security in Dubai",
         titleHighlight: "Dahua",
         highlight: "SIRA Approved Partner",

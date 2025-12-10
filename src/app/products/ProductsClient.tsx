@@ -256,7 +256,7 @@ export function ProductsClient({
   // Hero images
   const desktopHeroImage = "/images/Product1.png";
   const mobileBannerData = {
-    image: "/mobile/products.jpg",
+    image: "/mobile/Last Image.png",
     title: "Our Products",
     subtitle: "Industrial Solutions",
     description: "Carefully engineered solutions for industrial needs — browse our complete collection.",
