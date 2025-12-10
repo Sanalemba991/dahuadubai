@@ -458,7 +458,7 @@ export default function ProductDetailPageClient({
           >
             <Link
               href="/"
-              className="text-slate-600 hover:text-slate-900 transition-colors flex items-center group flex-shrink-0"
+              className="text-slate-600 hover:text-red-400 transition-colors flex items-center group flex-shrink-0"
             >
               <FaHome className="w-2 h-2 sm:w-2.5 sm:h-2.5 group-hover:scale-110 transition-transform" />
             </Link>
@@ -467,7 +467,7 @@ export default function ProductDetailPageClient({
 
             <Link
               href={navbarCategory.href}
-              className="text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap flex-shrink-0"
+              className="text-slate-600 hover:text-red-400 transition-colors whitespace-nowrap flex-shrink-0"
             >
               {navbarCategory.name}
             </Link>
@@ -476,7 +476,7 @@ export default function ProductDetailPageClient({
 
             <Link
               href={`/product/${category.slug}`}
-              className="text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap flex-shrink-0"
+              className="text-slate-600 hover:text-red-400 transition-colors whitespace-nowrap flex-shrink-0"
             >
               {category.name}
             </Link>
@@ -485,7 +485,7 @@ export default function ProductDetailPageClient({
 
             <Link
               href={`/product/${category.slug}/${subCategory.slug}`}
-              className="text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap flex-shrink-0"
+              className="text-slate-600 hover:text-red-400 transition-colors whitespace-nowrap flex-shrink-0"
             >
               {subCategory.name}
             </Link>

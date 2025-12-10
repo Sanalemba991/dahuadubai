@@ -168,7 +168,7 @@ const ProductShowcase = ({
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       custom={index}
-      className="group p-4"
+      className="group p-0"
     >
       <a href={href} className="block">
         <motion.div
@@ -427,38 +427,67 @@ export default function SubCategoryPageClient({
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 lg:py-28">
           {/* Breadcrumb Navigation */}
-          <motion.nav
-            className="inline-flex items-center gap-x-1 sm:gap-x-1.5 text-[10px] sm:text-xs bg-white/80 backdrop-blur-sm rounded-full px-2.5 sm:px-3 py-1.5 mb-8 sm:mb-10 md:mb-12 whitespace-nowrap"
+         <motion.nav
+            className="inline-flex items-center gap-x-0.5 sm:gap-x-1 
+    text-[8px] sm:text-xs 
+    bg-white/80 backdrop-blur-sm rounded-full 
+    px-1 sm:px-2 py-0.5 sm:py-1 
+    mb-4 sm:mb-6
+    max-w-full overflow-x-auto
+    flex-nowrap"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <Link
               href="/"
-              className="text-slate-600 hover:text-slate-900 transition-colors flex items-center group flex-shrink-0"
+              className="text-slate-600 hover:text-red-400 transition-colors flex items-center group flex-shrink-0"
             >
-              <FaHome className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover:scale-110 transition-transform" />
+              <FaHome className="w-2 h-2 sm:w-2.5 sm:h-2.5 group-hover:scale-110 transition-transform" />
             </Link>
 
-            <FaChevronRight className="w-2 h-2 text-slate-400 flex-shrink-0" />
-            <a
+            <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
+
+            <Link
               href={navbarCategory.href}
-              className="text-slate-600 hover:text-slate-900 transition-colors"
+              className="text-slate-600 hover:text-red-400 transition-colors whitespace-nowrap flex-shrink-0"
             >
               {navbarCategory.name}
-            </a>
-            <FaChevronRight className="w-2 h-2 text-slate-400 flex-shrink-0" />
-            <a
+            </Link>
+
+            <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
+
+            <Link
               href={`/product/${category.slug}`}
-              className="text-slate-600 hover:text-slate-900 transition-colors"
+              className="text-slate-600 hover:text-red-400 transition-colors whitespace-nowrap flex-shrink-0"
             >
               {category.name}
-            </a>
-            <FaChevronRight className="w-2 h-2 text-slate-400 flex-shrink-0" />
-            <span className="text-red-500 font-semibold">
+            </Link>
+
+            <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
+
+            <Link
+              href={`/product/${category.slug}/${subCategory.slug}`}
+              className="text-red-500 hover:text-red-400 transition-colors whitespace-nowrap flex-shrink-0"
+            >
               {subCategory.name}
-            </span>
+            </Link>
+
+           
+
+           
           </motion.nav>
+
+          <style jsx>{`
+            motion.nav::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
 
           {/* Products Section */}
           {products.length > 0 && (
@@ -484,7 +513,7 @@ export default function SubCategoryPageClient({
                 </div>
               </motion.div>
               <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 variants={containerVariants}
               >
                 {products.map((product, index) => (

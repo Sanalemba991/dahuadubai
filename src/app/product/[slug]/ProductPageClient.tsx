@@ -423,14 +423,14 @@ export default function ProductPageClient({
           >
             <Link
               href="/"
-              className="text-slate-600 hover:text-slate-900 transition-colors flex items-center group flex-shrink-0"
+              className="text-slate-600 hover:text-red-400 transition-colors flex items-center group flex-shrink-0"
             >
               <FaHome className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover:scale-110 transition-transform" />
             </Link>
             <FaChevronRight className="w-2 h-2 text-slate-400 flex-shrink-0" />
             <Link
               href={category.navbarCategoryId.href}
-              className="text-slate-600 hover:text-slate-900 transition-colors"
+              className="text-slate-600 hover:text-red-400 transition-colors"
             >
               {category.navbarCategoryId.name}
             </Link>
