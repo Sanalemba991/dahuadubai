@@ -284,7 +284,9 @@ export default function SubCategoryPageClient({
     image: "/mobile/Product 2.png",
     title: subCategory.name,
     subtitle: "Subcategory",
-    description: subCategory.description || "Explore detailed products in this subcategory.",
+    description:
+      subCategory.description ||
+      "Explore detailed products in this subcategory.",
   };
 
   return (
@@ -394,7 +396,9 @@ export default function SubCategoryPageClient({
         </motion.div>
         <div className="absolute inset-0 bg-black/60"></div>
         <motion.div
-          variants={shouldReduceMotion ? reducedMotionVariants : containerVariants}
+          variants={
+            shouldReduceMotion ? reducedMotionVariants : containerVariants
+          }
           initial="hidden"
           animate={isLoaded ? "visible" : "hidden"}
           className="relative z-10 text-center px-4 space-y-4"
@@ -427,7 +431,7 @@ export default function SubCategoryPageClient({
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 lg:py-28">
           {/* Breadcrumb Navigation */}
-         <motion.nav
+          <motion.nav
             className="inline-flex items-center gap-x-0.5 sm:gap-x-1 
     text-[8px] sm:text-xs 
     bg-white/80 backdrop-blur-sm rounded-full 
@@ -477,10 +481,6 @@ export default function SubCategoryPageClient({
             >
               {subCategory.name}
             </Link>
-
-           
-
-           
           </motion.nav>
 
           <style jsx>{`

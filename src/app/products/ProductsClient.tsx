@@ -411,9 +411,19 @@ export function ProductsClient({
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 lg:py-28">
           {/* Breadcrumb Navigation */}
-          <motion.nav
-            className="inline-flex items-center gap-x-1 sm:gap-x-1.5 text-[10px] sm:text-xs 
-            bg-white/80 backdrop-blur-sm rounded-full px-2.5 sm:px-3 py-1.5 mb-8 sm:mb-10 md:mb-12"
+         <motion.nav
+            className="inline-flex items-center gap-x-0.5 sm:gap-x-1 
+    text-[8px] sm:text-xs 
+    bg-white/80 backdrop-blur-sm rounded-full 
+    px-1 sm:px-2 py-0.5 sm:py-1 
+    mb-4 sm:mb-6
+    max-w-full overflow-x-auto
+    flex-nowrap"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
@@ -422,12 +432,12 @@ export function ProductsClient({
               href="/"
               className="text-slate-600 hover:text-red-400 transition-colors flex items-center group flex-shrink-0"
             >
-              <FaHome className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover:scale-110 transition-transform" />
+              <FaHome className="w-2 h-2 sm:w-2.5 sm:h-2.5 group-hover:scale-110 transition-transform" />
             </Link>
 
-            <FaChevronRight className="w-2 h-2 text-slate-400 flex-shrink-0" />
+            <FaChevronRight className="w-1 h-1 sm:w-1.5 sm:h-1.5 text-slate-400 flex-shrink-0" />
 
-            <span className="text-red-500 font-semibold">Products</span>
+            <span className="text-red-600 hover:text-red-400 transition-colors whitespace-nowrap flex-shrink-0">Products</span>
           </motion.nav>
 
           {/* Products Section */}
